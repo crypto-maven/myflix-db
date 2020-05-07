@@ -48416,7 +48416,7 @@ function LoginView(props) {
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
 
-    _axios.default.post("https://myflix16.herokuapp.com/login", {
+    _axios.default.post("https://myflix-db.herokuapp.com/login", {
       Username: username,
       Password: password
     }).then(function (response) {
@@ -49396,7 +49396,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     value: function getMovies(token) {
       var _this2 = this;
 
-      _axios.default.get("https://myflix16.herokuapp.com/movies", {
+      _axios.default.get("https://myflix-db.herokuapp.com/movies", {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
@@ -49647,7 +49647,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65242" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50625" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
