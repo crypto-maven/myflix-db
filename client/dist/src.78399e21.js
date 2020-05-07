@@ -48523,7 +48523,7 @@ function RegistrationView(props) {
   var handleRegister = function handleRegister(e) {
     e.preventDefault();
 
-    _axios.default.post("https://myflix16.herokuapp.com/users", {
+    _axios.default.post("https://myflix-db.herokuapp.com/users", {
       Username: username,
       Password: password,
       Email: email,
@@ -49647,7 +49647,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50625" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50900" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
