@@ -48832,7 +48832,7 @@ var DirectorView = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this$props = this.props,
           movies = _this$props.movies,
-          directorName = _this$props.directorName;
+          director = _this$props.director;
       if (!director) return null;
       return _react.default.createElement("div", {
         className: "director-view"
@@ -49647,7 +49647,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50262" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50506" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
