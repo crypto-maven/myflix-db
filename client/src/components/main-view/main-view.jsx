@@ -15,6 +15,8 @@ import { DirectorView } from "../director-view/director-view";
 import { GenreView } from "../genre-view/genre-view";
 import { ProfileView } from "../profile-view/profile-view";
 import { UpdateProfile } from "../update-profile/update-profile";
+import { About } from "../Header/About";
+import { Contact } from "../Header/Contact";
 
 export class MainView extends React.Component {
 	constructor() {
@@ -89,6 +91,12 @@ export class MainView extends React.Component {
 							<Nav.Link as={Link} to="/user">
 								<h3>Profile</h3>
 							</Nav.Link>
+							<Nav.Link as={Link} to="/about">
+								<h3>About</h3>
+							</Nav.Link>
+							<Nav.Link as={Link} to="/contact">
+								<h3>Contact</h3>
+							</Nav.Link>
 							<Button variant="link" onClick={() => this.onLogout()}>
 								<b>Log Out</b>
 							</Button>
@@ -112,6 +120,9 @@ export class MainView extends React.Component {
 					/>
 
 					<Route path="/register" render={() => <RegistrationView />} />
+					<Route path="/about" render={() => <About />} />
+					{/* <Route path="/contact" render={() => <Contact />} /> */}
+					<Route path="/contact" component={Contact} />
 
 					<Route
 						path="/movies/:movieId"
