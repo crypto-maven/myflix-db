@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 
 export class About extends React.Component {
 	render() {
-		return <h1>About Nicole</h1>;
+		return <h1>About Me</h1>;
 	}
 }
 
