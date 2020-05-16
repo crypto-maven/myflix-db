@@ -34,21 +34,6 @@ export class MainView extends React.Component {
 		};
 	}
 
-	getMovies(token) {
-		axios
-			.get("https://myflix-db.herokuapp.com/movies", {
-				headers: { Authorization: `Bearer ${token}` },
-			})
-			.then((response) => {
-				this.setState({
-					movies: response.data,
-				});
-			})
-			.catch(function (error) {
-				console.log(error);
-			});
-	}
-
 	componentDidMount() {
 		let accessToken = localStorage.getItem("token");
 		if (accessToken !== null) {
@@ -57,6 +42,34 @@ export class MainView extends React.Component {
 			});
 			this.getMovies(accessToken);
 		}
+	}
+	// getMovies(token) {
+	// 	axios
+	// 		.get("https://myflix-db.herokuapp.com/movies", {
+	// 			headers: { Authorization: `Bearer ${token}` },
+	// 		})
+	// 		.then((response) => {
+	// 			this.setState({
+	// 				movies: response.data,
+	// 			});
+	// 		})
+	// 		.catch(function (error) {
+	// 			console.log(error);
+	// 		});
+	// }
+
+	getMovies(token) {
+		axios
+			.get("https://myflix-db.herokuapp.com/movies", {
+				headers: { Authorization: `Bearer ${token}` },
+			})
+			.then((response) => {
+				// #1
+				this.props.setMovies(response.data);
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
 	}
 
 	onLoggedIn(authData) {
@@ -78,7 +91,9 @@ export class MainView extends React.Component {
 	}
 
 	render() {
-		const { movies, user } = this.state;
+		// #2
+		let { movies } = this.props;
+		let { user } = this.state;
 
 		if (!movies) return <div className="main-view" />;
 
@@ -113,7 +128,7 @@ export class MainView extends React.Component {
 				<br></br>
 				<br></br>
 				<div className="main-view">
-					<Route
+					{/* <Route
 						exact
 						path="/"
 						render={() => {
@@ -122,6 +137,17 @@ export class MainView extends React.Component {
 									<LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
 								);
 							return movies.map((m) => <MovieCard key={m._id} movie={m} />);
+						}}
+					/> */}
+					<Route
+						exact
+						path="/"
+						render={() => {
+							if (!user)
+								return (
+									<LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
+								);
+							return <MoviesList movies={movies} />;
 						}}
 					/>
 
@@ -178,3 +204,11 @@ export class MainView extends React.Component {
 		);
 	}
 }
+
+// #3
+let mapStateToProps = (state) => {
+	return { movies: state.movies };
+};
+
+// #4
+export default connect(mapStateToProps, { setMovies })(MainView);
