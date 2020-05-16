@@ -51106,7 +51106,7 @@ function RegistrationView(props) {
     }).then(function (response) {
       var data = response.data;
       console.log(data);
-      window.open("/", "_self");
+      window.open("/client", "_self");
     }).catch(function (e) {
       console.log("error registering the user");
     });
@@ -52073,7 +52073,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
       });
-      return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactBootstrap.Navbar, {
+      return _react.default.createElement(_reactRouterDom.BrowserRouter, {
+        basename: "/client"
+      }, _react.default.createElement(_reactBootstrap.Navbar, {
         bg: "light",
         expand: "lg"
       }, _react.default.createElement(_reactBootstrap.Navbar.Brand, {
@@ -52352,7 +52354,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59965" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60857" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
