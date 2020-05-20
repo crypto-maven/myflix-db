@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <title>My Flix</title>
+</head>
+
+<body>
+    <h1>My Flix</h1>
+    <br>
+    <p>This application provides users with access to information about various movies, directors and genres. Users
+        can also sign up, update their
+        their personal information and create list of their favorite movies.
+    </p>
+    <br>
+    <br>
+    <table class="content-table" style="width: 1000px;">
+        <thead>
+            <tr>
+                <th style="width: 120px;">Request</th>
+                <th>URL</th>
+                <th>HTTP Method</th>
+                <th style="width: 100px;">Request Body Data Format</th>
+                <th>Response Body Data Format</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Get a list of ALL movies to the user</td>
+                <td>/movies</td>
+                <td>GET</td>
+                <td>None</td>
+                <td>A JSON object holding data about all the movies</td>
+            </tr>
+            <tr>
+                <td>Get data about a single movie by title</td>
+                <td>/movies/[Title]</td>
+                <td>GET</td>
+                <td>None</td>
+                <td>A JSON object holding data about a single movie, containing a
+                    title, description, genre property, director property and image.
+                    Example: <p style="color:blue">
+                        {
+                        "Genre": {
+                        "Name": "Drama",
+                        "Description": "Mode of fictional representation through dialogue and performance."
+                        },
+                        "Director": {
+                        "Name": "James Cameron",
+                        "Bio": "A Canadian filmmaker, artist, and environmentalist, who is best known for making science
+                        fiction and epic films.",
+                        "Birth": "1954-08-16",
+                        "Death": " "
+                        },
+                        "_id": "5e23cb4450ee527f72df67de",
+                        "Title": "Titanic",
+                        "Description": "The film is based on accounts of the sinking of the RMS Titanic",
+                        "ImagePath": "titanic.jpg",
+                        "Featured": true
+                        }
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>Get data about a movie genre</td>
+                <td>/movies/genre/[Name]</td>
+                <td>GET</td>
+                <td>None</td>
+                <td>A JSON object holding data about a movie genre.
+                    Example: <p style="color:blue">
+                        {
+                        "Name": "Drama",
+                        "Description": "Mode of fictional representation through dialogue and performance."
+                        }
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>Get data about a director</td>
+                <td>/movies/director/[Name]</td>
+                <td>GET</td>
+                <td>None</td>
+                <td>A JSON object holding data about a director.
+                    Example: <p style="color:blue">
+                        {
+                        "Genre": {
+                        "Name": "Drama",
+                        "Description": "Mode of fictional representation through dialogue and performance."
+                        },
+                        "Director": {
+                        "Name": "David Frankel",
+                        "Bio": "an American director, screenwriter and executive producer.",
+                        "Birth": "1959-04-02",
+                        "Death": " "
+                        },
+                        "_id": "5e23caef50ee527f72df67da",
+                        "Title": "The Devil Wears Prada",
+                        "Description": "A 2006 American comedy-drama film directed by David Frankel and produced by
+                        Wendy Finerman.",
+                        "ImagePath": "devil-wear-prada.jpg",
+                        "Featured": true
+                        }
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>Add new user</td>
+                <td>/users</td>
+                <td>POST</td>
+                <td>A JSON object holding data about the user to add, structured like:
+                    <p style="color: blue">
+                        {
+                        ID : Integer,
+                        Username : String,
+                        Password : String,
+                        Email : String,
+                        Birthday : Date
+                        }
+                    </p>
+                </td>
+                <td>A JSON object holding data about the user that was added, including an ID.
+                    Example: <p style="color:blue">
+                        {
+                        "FavoriteMovies": [],
+                        "_id": "5e251d5d7397190a4ce3a931",
+                        "Username": "vilad",
+                        "Password": "v1lahi894",
+                        "Email": "vilad@gmail.com",
+                        "Birthday": "1989-10-15T00:00:00.000Z",
+                        "__v": 0
+                        }
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>Update a user's information</td>
+                <td>/users/[Username]</td>
+                <td>PUT</td>
+                <td>A JSON object holding data about the user to update, structured like:
+                    <p style="color: blue">
+                        {
+                        Username: String,
+                        (required)
+                        Password: String,
+                        (required)
+                        Email: String,
+                        (required)
+                        Birthday: Date
+                        }
+                    </p>
+                </td>
+                <td>A JSON object holding data about the user that was updated, including ID and Favorites:
+                    Example: <p style="color:blue">
+                        {
+                        "FavoriteMovies": [],
+                        "_id": "5e251d5d7397190a4ce3a931",
+                        "Username": "vilad",
+                        "Password": "v1lahi894",
+                        "Email": "vilad12@gmail.com",
+                        "Birthday": "1989-10-15T00:00:00.000Z",
+                        "__v": 0
+                        }
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>Add movies to user's list of favorites</td>
+                <td>/users/[Username]/movies/[MovieID]</td>
+                <td>POST</td>
+                <td>None</td>
+                <td>A JSON object holding data about the movie added to user's favorites.
+                    Example: <p style="color:blue">
+                        {
+                        "FavoriteMovies": [
+                        "5e23cb0250ee527f72df67db"
+                        ],
+                        "_id": "5e251d5d7397190a4ce3a931",
+                        "Username": "vilad",
+                        "Password": "v1lahi894",
+                        "Email": "vilad12@gmail.com",
+                        "Birthday": "1989-10-15T00:00:00.000Z",
+                        "__v": 0
+                        }
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>Remove movies from user's list of favorites</td>
+                <td>/users/[Username]/movies/[MovieID]</td>
+                <td>DELETE</td>
+                <td>None</td>
+                <td>A JSON object holding data about the updated user's favorites list.
+                    Example: <p style="color:blue">
+                        {
+                        "FavoriteMovies": [],
+                        "_id": "5e251d5d7397190a4ce3a931",
+                        "Username": "vilad",
+                        "Password": "v1lahi894",
+                        "Email": "vilad12@gmail.com",
+                        "Birthday": "1989-10-15T00:00:00.000Z",
+                        "__v": 0
+                        }
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>Remove user accounts</td>
+                <td>/users/[Username]</td>
+                <td>DELETE</td>
+                <td>None</td>
+                <td>A message indicating the user's account was deleted</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>
