@@ -10,12 +10,8 @@ const app = express();
 const Movies = Models.Movie;
 const Users = Models.User;
 const { check, validationResult } = require("express-validator");
-// local connection
-//mongoose.connect("mongodb://localhost:27017/myflixdb", {useNewUrlParser: true});
-mongoose.connect(
-	"mongodb+srv://mva66:Kidaan16@myflixdb-niqk6.mongodb.net/myFlixDB?retryWrites=true",
-	{ useNewUrlParser: true }
-);
+
+// mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true });
 
 app.use(morgan("common"));
 app.use(express.static("public"));
@@ -23,19 +19,25 @@ app.use("/client", express.static(path.join(__dirname, "client", "dist")));
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get("/client/*", (req, res) => {
-	res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
-});
-
 var auth = require("./auth")(app);
 const passport = require("passport");
 require("./passport");
 
-var allowedOrigins = ["http://localhost:8080", "http://localhost:1234"];
+mongoose.connect(
+	"mongodb+srv://myflixdbadmin:christori15@cluster0-lf8ab.mongodb.net/myFlixDB?retryWrites=true&w=majority",
+	{
+		useNewUrlParser: true,
+	}
+);
+var allowedOrigins = [
+	"http://localhost:8080",
+	"http://localhost:1234",
+	"https://myflix-db.herokuapp.com/",
+];
 
 app.use(
 	cors({
-		origin: function (origin, callback) {
+		origin: (origin, callback) => {
 			if (!origin) return callback(null, true);
 
 			if (allowedOrigins.indexOf(origin) === -1) {
@@ -48,6 +50,10 @@ app.use(
 		},
 	})
 );
+
+app.get("/client/*", (req, res) => {
+	res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
 
 //list of all movies
 app.get("/", function (req, res) {
@@ -104,10 +110,7 @@ app.get("/movies/genres/:Name", function (req, res) {
 });
 
 //get list of users
-app.get("/users", passport.authenticate("jwt", { session: false }), function (
-	req,
-	res
-) {
+app.get("/users", function (req, res) {
 	Users.find()
 		.then(function (users) {
 			res.status(201).json(users);
